@@ -1,0 +1,49 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{github.workflow}}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  defold:
+    name: Build Defold
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          key: web-defold-cache
+          path: .defold-cache
+      - uses: koenbollen/defold-action@main
+        id: build
+        with:
+          target-platform: web
+          defold-version: "1.9.4"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: frustum-culling-test-${{github.ref_name}}-${{github.sha}}
+          path: ${{steps.build.outputs.build-path}}
+          if-no-files-found: error
+          overwrite: true
+  deploy:
+    name: Deploy Web Build
+    needs: [defold]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: frustum-culling-test-${{github.ref_name}}-${{github.sha}}
+          path: dist
+      - uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist

@@ -1,0 +1,128 @@
+name: "main"
+scale_along_z: 0
+embedded_instances {
+  id: "logos"
+  children: "far"
+  children: "mid"
+  children: "near"
+  children: "offscreen"
+  data: "components {\n"
+  "  id: \"toggle\"\n"
+  "  component: \"/main/toggle.script\"\n"
+  "}\n"
+  ""
+  position {
+    x: 480.0
+    y: 320.0
+  }
+}
+embedded_instances {
+  id: "far"
+  data: "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"logo_256\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "size {\\n"
+  "  x: 256.0\\n"
+  "  y: 256.0\\n"
+  "}\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/main/common.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "}\n"
+  ""
+  position {
+    x: -50.0
+    z: -0.5
+  }
+}
+embedded_instances {
+  id: "mid"
+  data: "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"logo_256\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "size {\\n"
+  "  x: 256.0\\n"
+  "  y: 256.0\\n"
+  "}\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/main/common.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "near"
+  data: "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"logo_256\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "size {\\n"
+  "  x: 256.0\\n"
+  "  y: 256.0\\n"
+  "}\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/main/common.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 50.0\n"
+  "    z: 0.5\n"
+  "  }\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "offscreen"
+  data: "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"logo_256\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "size {\\n"
+  "  x: 256.0\\n"
+  "  y: 256.0\\n"
+  "}\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/main/common.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "}\n"
+  ""
+  position {
+    x: -1063.0
+  }
+}
+embedded_instances {
+  id: "hud"
+  data: "embedded_components {\n"
+  "  id: \"instructions\"\n"
+  "  type: \"label\"\n"
+  "  data: \"size {\\n"
+  "  x: 128.0\\n"
+  "  y: 32.0\\n"
+  "}\\n"
+  "pivot: PIVOT_SW\\n"
+  "text: \\\"press \\\\\\\'space\\\\\\\' to toggle the near plane in the frustum projection\\\\n"
+  "\\\"\\n"
+  "  \\\"press \\\\\\\'p\\\\\\\' to toggle profiler\\\"\\n"
+  "font: \\\"/builtins/fonts/default.font\\\"\\n"
+  "material: \\\"/builtins/fonts/label-df.material\\\"\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 5.0\n"
+  "    y: 5.0\n"
+  "  }\n"
+  "}\n"
+  ""
+}

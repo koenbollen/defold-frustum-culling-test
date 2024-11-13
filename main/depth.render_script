@@ -1,0 +1,51 @@
+local DISPLAY_WIDTH = sys.get_config_number("display.width") or 1280
+local DISPLAY_HEIGHT = sys.get_config_number("display.height") or 720
+
+local IDENTITY = vmath.matrix4()
+
+function init(self)
+    self.render_half = false
+
+    self.tile = render.predicate({ "tile" })
+
+    assert(render.FRUSTUM_PLANES_ALL == 6) -- just checkin'
+end
+
+function update(self)
+    local near = -1.0
+    local far = 1.0
+    if self.render_half then -- press space to toggle
+        near = 0.0
+    end
+    local projection = vmath.matrix4_orthographic(0, DISPLAY_WIDTH, 0, DISPLAY_HEIGHT, near, far)
+    local view = IDENTITY
+
+    render.clear({
+        [graphics.BUFFER_TYPE_COLOR0_BIT] = vmath.vector4(0, 0, 0, 1),
+        [graphics.BUFFER_TYPE_DEPTH_BIT] = 1,
+    })
+
+    render.set_projection(projection)
+    render.set_viewport(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT)
+    render.set_view(view)
+
+    render.set_blend_func(graphics.BLEND_FACTOR_SRC_ALPHA, graphics.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
+    render.enable_state(graphics.STATE_DEPTH_TEST)
+
+    render.enable_state(graphics.STATE_BLEND)
+    render.draw(self.tile, {
+        frustum = projection * view,
+        frustum_planes = render.FRUSTUM_PLANES_ALL
+    })
+end
+
+function on_message(self, message_id, message)
+    if message_id == hash("toggle_half") then
+        self.render_half = not self.render_half
+        if self.render_half then
+            print("Rendering half")
+        else
+            print("Rendering full")
+        end
+    end
+end
